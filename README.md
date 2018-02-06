@@ -13,7 +13,7 @@ This does not implement:
 * Checking whether cards are duplicate
 * Showing the cards of the best hand in the output
 * Calculating and displaying detailed rank/scoring 
-* Does not fail gracefully, anything outside of the spec throws an exception (fail early)
+* Does not fail gracefully, anything outside of the spec will panic (fail early)
 
 QA:
  * NUnit tests WIP
