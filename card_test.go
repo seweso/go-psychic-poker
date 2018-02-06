@@ -53,6 +53,25 @@ func TestCardStringShort(t *testing.T) {
 	}
 }
 
+func TestCardConvert(t *testing.T) {
+	cases := []struct {
+		in   string
+		want card
+	}{
+		{"AD", card{faceAce, diamonds}},
+		{"TC", card{faceTen, clubs}},
+		{"8S", card{face8, spades}},
+		{"1H", card{face1Ace, hearts}},
+	}
+
+	for _, c := range cases {
+		got := convertToOneCard(c.in)
+		if got != c.want {
+			t.Errorf("convertToFace(%q) == %q, want %q", c.in, got, c.want)
+		}
+	}
+}
+
 func TestSuitConvert(t *testing.T) {
 	cases := []struct {
 		in   byte
