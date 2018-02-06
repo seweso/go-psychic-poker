@@ -67,7 +67,7 @@ func TestCardConvert(t *testing.T) {
 	for _, c := range cases {
 		got := convertToOneCard(c.in)
 		if got != c.want {
-			t.Errorf("convertToFace(%q) == %q, want %q", c.in, got, c.want)
+			t.Errorf("convertToOneCard(%q) == %q, want %q", c.in, got, c.want)
 		}
 	}
 }
