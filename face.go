@@ -5,7 +5,7 @@ import "fmt"
 type face int
 
 const (
-	faceAce face = 0 + iota
+	faceAce face = 1 + iota
 	faceKing
 	faceQueen
 	faceJack
@@ -40,4 +40,13 @@ var faces = map[face]string{
 
 func (f face) String() string {
 	return fmt.Sprintf("%v", faces[f])
+}
+
+func convertToFace(b byte) face {
+	for k := range faces {
+		if k.String()[0] == b {
+			return k
+		}
+	}
+	panic(fmt.Sprintf("Unknown face found: %v", b))
 }
