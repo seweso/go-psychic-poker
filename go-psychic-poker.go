@@ -8,16 +8,16 @@ import (
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter text: ")
+	writer := bufio.NewWriter(os.Stdout)
+	Process(reader, writer)
+}
+
+// Process data from reader and write to writer
+func Process(reader *bufio.Reader, writer *bufio.Writer) {
+	defer writer.Flush()
+	fmt.Fprint(writer, "Input text:\n")
+	writer.Flush()
+
 	text, _ := reader.ReadString('\n')
-	fmt.Println(text)
-
-	fmt.Println("Enter text: ")
-	text2 := ""
-	fmt.Scanln(text2)
-	fmt.Println(text2)
-
-	ln := ""
-	fmt.Sscanln("%v", ln)
-	fmt.Println(ln)
+	fmt.Fprint(writer, text)
 }
