@@ -1,8 +1,28 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
+	"strings"
 	"testing"
 )
+
+func TestProcessReader(t *testing.T) {
+	in := strings.NewReader("TH JH QC QD QS QH KH AH 2S 6S\n2H 2S 3H 3S 3C 2D 3D 6C 9C TH")
+	want := "Hand: TH JH QC QD QS Deck: QH KH AH 2S 6S Best hand: straight-flush\nHand: 2H 2S 3H 3S 3C Deck: 2D 3D 6C 9C TH Best hand: four-of-a-kind\n"
+
+	bufIn := bufio.NewReader(in)
+	var out bytes.Buffer
+	bufOut := bufio.NewWriter(&out)
+
+	ProcessReader(bufIn, bufOut)
+
+	got := out.String()
+
+	if got != want {
+		t.Errorf("ProcessReader(%q) == %q, want %q", in, got, want)
+	}
+}
 
 func TestProcessString(t *testing.T) {
 	cases := []struct {
@@ -21,7 +41,7 @@ func TestProcessString(t *testing.T) {
 	for _, c := range cases {
 		got := ProcessString(c.in)
 		if got != c.want {
-			t.Errorf("Reverse(%q) == %q, want %q", c.in, got, c.want)
+			t.Errorf("ProcessString(%q) == %q, want %q", c.in, got, c.want)
 		}
 	}
 }
