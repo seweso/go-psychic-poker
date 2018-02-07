@@ -17,7 +17,23 @@ var functions = map[handrank]rankFunc{
 }
 
 func GetBestRank(hand, deck []card) handrank {
-	return highestCard
+	currentRank := highestCard
+
+	// Brute force all possible hands (with this deck)
+	for _, v := range GetAllPossibleHands(hand, deck) {
+		rankForCurrentHand := GetBestRankForHand(v)
+
+		if rankForCurrentHand == straightFlush {
+			return straightFlush
+		}
+
+		// Found a beter rank?
+		if rankForCurrentHand < currentRank {
+			currentRank = rankForCurrentHand
+		}
+	}
+
+	return currentRank
 }
 
 func GetAllPossibleHands(hand, deck []card) (r [][]card) {
