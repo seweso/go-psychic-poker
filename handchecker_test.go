@@ -11,19 +11,19 @@ func TestGetAllPossibleHandsTest(t *testing.T) {
 		hand []card
 		deck []card
 	}{
-		[]card{card{face1Ace, hearts}, card{face1Ace, hearts}, card{face1Ace, hearts}},
-		[]card{card{face1Ace, spades}, card{face1Ace, spades}, card{face1Ace, spades}},
+		convertToCards("1H 2H 3H"),
+		convertToCards("1S 2S 3S"),
 	}
 
 	want := [][]card{
-		[]card{card{face1Ace, hearts}, card{face1Ace, hearts}, card{face1Ace, hearts}},
-		[]card{card{face1Ace, spades}, card{face1Ace, hearts}, card{face1Ace, hearts}},
-		[]card{card{face1Ace, hearts}, card{face1Ace, spades}, card{face1Ace, hearts}},
-		[]card{card{face1Ace, spades}, card{face1Ace, spades}, card{face1Ace, hearts}},
-		[]card{card{face1Ace, hearts}, card{face1Ace, hearts}, card{face1Ace, spades}},
-		[]card{card{face1Ace, spades}, card{face1Ace, hearts}, card{face1Ace, spades}},
-		[]card{card{face1Ace, hearts}, card{face1Ace, spades}, card{face1Ace, spades}},
-		[]card{card{face1Ace, spades}, card{face1Ace, spades}, card{face1Ace, spades}},
+		convertToCards("1H 2H 3H"),
+		convertToCards("1S 2H 3H"),
+		convertToCards("1H 1S 3H"),
+		convertToCards("1S 2S 3H"),
+		convertToCards("1H 2H 1S"),
+		convertToCards("1S 2H 2S"),
+		convertToCards("1H 1S 2S"),
+		convertToCards("1S 2S 3S"),
 	}
 
 	got := GetAllPossibleHands(in.hand, in.deck)

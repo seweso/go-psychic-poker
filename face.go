@@ -35,6 +35,7 @@ var faces = map[face]string{
 	face4:     "4",
 	face3:     "3",
 	face2:     "2",
+	face1Ace:  "1Ace",
 }
 
 func (f face) String() string {

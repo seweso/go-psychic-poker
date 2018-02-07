@@ -31,18 +31,16 @@ func GetAllPossibleHands(hand, deck []card) (r [][]card) {
 
 	// Brute force all options by replacing cards based on bit mask
 	for i := uint(0); i < totalNrOfOptions; i++ {
-		handCopy := hand
+		handCopy := append([]card(nil), hand...)
 		deckPosition := 0
 
-		for b := uint(0); b < totalNrOfOptions; b++ {
-
+		for b := uint(0); b < uint(len(hand)); b++ {
 			if (i & (1 << b)) != 0 {
 				handCopy[b] = deck[deckPosition]
 				deckPosition = deckPosition + 1
-
-				r = append(r, handCopy)
 			}
 		}
+		r = append(r, handCopy)
 	}
 	return
 }
