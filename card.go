@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"strings"
+)
 
 type card struct {
 	f face
@@ -14,8 +18,13 @@ func convertToOneCard(s string) card {
 	return card{face, suit}
 }
 
-func convertToCards(s string) []card {
-	return nil
+func convertToCards(s string) (r []card) {
+	scanner := bufio.NewScanner(strings.NewReader(s))
+	scanner.Split(bufio.ScanWords)
+	for scanner.Scan() {
+		r = append(r, convertToOneCard(scanner.Text()))
+	}
+	return
 }
 
 func (c card) String() string {
