@@ -44,7 +44,7 @@ func TestCardConvert(t *testing.T) {
 		{"AD", card{faceAce, diamonds}},
 		{"TC", card{faceTen, clubs}},
 		{"8S", card{face8, spades}},
-		{"1H", card{face1Ace, hearts}},
+		{"JH", card{faceJack, hearts}},
 	}
 
 	for _, c := range cases {

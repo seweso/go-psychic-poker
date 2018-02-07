@@ -1,12 +1,13 @@
 package main
 
 import "testing"
+
 func TestFaceString(t *testing.T) {
 	cases := []struct {
 		in   face
 		want string
 	}{
-		{face1Ace, "1Ace"},
+		{face2, "2"},
 		{faceJack, "Jack"},
 	}
 
@@ -18,14 +19,12 @@ func TestFaceString(t *testing.T) {
 	}
 }
 
-
-
 func TestFaceConvert(t *testing.T) {
 	cases := []struct {
 		in   byte
 		want face
 	}{
-		{"1"[0], face1Ace},
+		{"A"[0], faceAce},
 		{"T"[0], faceTen},
 		{"8"[0], face8},
 		{"Q"[0], faceQueen},
