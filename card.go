@@ -14,6 +14,10 @@ func convertToOneCard(s string) card {
 	return card{face, suit}
 }
 
+func convertToCards(s string) []card {
+	return nil
+}
+
 func (c card) String() string {
 	return fmt.Sprintf("%v of %v", c.f, c.s)
 }
