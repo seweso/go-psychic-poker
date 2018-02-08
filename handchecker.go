@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"math"
+	"sort"
+)
 
 type rankFunc func(cards) bool
 
@@ -47,7 +50,7 @@ func GetAllPossibleHands(hand, deck cards) (r []cards) {
 
 	// Brute force all options by replacing cards based on bit mask
 	for i := uint(0); i < totalNrOfOptions; i++ {
-		handCopy := append(cards(nil), hand...)
+		handCopy := hand.Copy()
 		deckPosition := 0
 
 		for b := uint(0); b < uint(len(hand)); b++ {
@@ -105,12 +108,21 @@ func IsSequentialHighRules(hand cards) bool {
 }
 
 func AceAsOne(c card) card {
-	// TODO Implement
+	if c.f == faceAce {
+		return card{face1Ace, c.s}
+	}
 	return c
 }
 
 func IsSequential(hand cards) bool {
-	// TODO Implement
+
+	sort.Sort(byFace(hand))
+
+	for i := 1; i < len(hand); i++ {
+		if hand[i-1].f != hand[i].f-1 {
+			return false
+		}
+	}
 	return true
 }
 
