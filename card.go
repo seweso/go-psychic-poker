@@ -11,6 +11,10 @@ type card struct {
 	s suit
 }
 
+type cards []card
+
+type convert func(card) card
+
 // Convert one card as string to card struct
 func convertToOneCard(s string) card {
 	face := convertToFace(s[0])
@@ -33,4 +37,9 @@ func (c card) String() string {
 
 func (c card) ShortString() string {
 	return fmt.Sprintf("%v%v", string(c.f.String()[0]), string(c.s.String()[0]))
+}
+
+func (c cards) Select(f convert) cards {
+	// TODO Implement
+	return c
 }

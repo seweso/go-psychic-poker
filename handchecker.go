@@ -2,7 +2,7 @@ package main
 
 import "math"
 
-type rankFunc func([]card) bool
+type rankFunc func(cards) bool
 
 var functions = map[handrank]rankFunc{
 	straightFlush: IsStraightFlush,
@@ -16,7 +16,7 @@ var functions = map[handrank]rankFunc{
 	highestCard:   IsHighestCard,
 }
 
-func GetBestRank(hand, deck []card) handrank {
+func GetBestRank(hand, deck cards) handrank {
 	currentRank := highestCard
 
 	// Brute force all possible hands (with this deck)
@@ -36,7 +36,7 @@ func GetBestRank(hand, deck []card) handrank {
 	return currentRank
 }
 
-func GetAllPossibleHands(hand, deck []card) (r [][]card) {
+func GetAllPossibleHands(hand, deck cards) (r []cards) {
 
 	if len(hand) != len(deck) {
 		panic("Hand should have equal amount of cards as deck")
@@ -47,7 +47,7 @@ func GetAllPossibleHands(hand, deck []card) (r [][]card) {
 
 	// Brute force all options by replacing cards based on bit mask
 	for i := uint(0); i < totalNrOfOptions; i++ {
-		handCopy := append([]card(nil), hand...)
+		handCopy := append(cards(nil), hand...)
 		deckPosition := 0
 
 		for b := uint(0); b < uint(len(hand)); b++ {
@@ -61,7 +61,7 @@ func GetAllPossibleHands(hand, deck []card) (r [][]card) {
 	return
 }
 
-func GetBestRankForHand(hand []card) handrank {
+func GetBestRankForHand(hand cards) handrank {
 
 	if len(hand) != 5 {
 		panic("Hand should contain 5 cards")
@@ -76,38 +76,75 @@ func GetBestRankForHand(hand []card) handrank {
 	return highestCard
 }
 
-func IsStraightFlush(hand []card) bool {
+func IsStraightFlush(hand cards) bool {
+	if len(hand) != 5 {
+		panic("Hand should contain 5 cards")
+	}
+
+	// Can't be a straight flush if all aren't the same suit
+	if !IsSameSuit(hand) {
+		return false
+	}
+
+	return IsSequentialHighRules(hand)
+}
+
+func IsSameSuit(hand cards) bool {
+	suit := hand[0].s
+	for _, k := range hand {
+		if k.s != suit {
+			return false
+		}
+	}
+	return true
+}
+
+func IsSequentialHighRules(hand cards) bool {
+	// Check whether cards are sequential, or cards are sequential when Ace is regarded as 1
+	return IsSequential(hand) || IsSequential(hand.Select(AceAsOne))
+}
+
+func AceAsOne(c card) card {
+	// TODO Implement
+	return c
+}
+
+func IsSequential(hand cards) bool {
+	// TODO Implement
+	return true
+}
+
+func IsFullHouse(hand cards) bool {
+	// TODO Implement
 	return false
 }
 
-func IsSequentialHighRules(hand []card) bool {
+func IsFlush(hand cards) bool {
+	// TODO Implement
 	return false
 }
 
-func IsFullHouse(hand []card) bool {
+func IsStraight(hand cards) bool {
+	// TODO Implement
 	return false
 }
 
-func IsFlush(hand []card) bool {
+func IsThreeOfAKind(hand cards) bool {
+	// TODO Implement
 	return false
 }
 
-func IsStraight(hand []card) bool {
+func IsTwoPairs(hand cards) bool {
+	// TODO Implement
 	return false
 }
 
-func IsThreeOfAKind(hand []card) bool {
+func IsOnePair(hand cards) bool {
+	// TODO Implement
 	return false
 }
 
-func IsTwoPairs(hand []card) bool {
-	return false
-}
-
-func IsOnePair(hand []card) bool {
-	return false
-}
-
-func IsHighestCard(hand []card) bool {
+func IsHighestCard(hand cards) bool {
+	// TODO Implement
 	return true
 }
