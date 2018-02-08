@@ -32,3 +32,49 @@ func TestGetAllPossibleHandsTest(t *testing.T) {
 		t.Errorf("GetAllPossibleHands(%q) == %q, want %q", in, got, want)
 	}
 }
+
+func TestIsStraightFlush(t *testing.T) {
+	isHand := [][]card{
+		convertToCards("AH KH QH JH TH"),
+		convertToCards("KH QH JH TH 9H"),
+		convertToCards("QH JH TH 9H 8H"),
+		convertToCards("8H 7H 6H 5H 4H"),
+		convertToCards("6H 5H 2H 3H 4H"),
+		convertToCards("AH 5H 4H 3H 2H"),
+	}
+
+	notHand := [][]card{
+		convertToCards("AH JH TH 9H 8H"),
+		convertToCards("QH JH TS 9H 8H"),
+	}
+
+	want := true
+	for _, in := range isHand {
+		got := IsStraightFlush(in)
+		if got != want {
+			t.Errorf("IsStraightFlush(%q) == %v, want %v", in, got, want)
+		}
+	}
+
+	want = false
+	for _, in := range notHand {
+		got := IsStraightFlush(in)
+		if got != want {
+			t.Errorf("IsStraightFlush(%q) == %v, want %v", in, got, want)
+		}
+	}
+}
+
+// [Test]
+//         public void IsStraightFlushTest()
+//         {
+//             Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("AH KH QH JH TH")));
+//             Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("KH QH JH TH 9H")));
+//             Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("QH JH TH 9H 8H")));
+//             Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("8H 7H 6H 5H 4H")));
+//             Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("6H 5H 2H 3H 4H")));
+//             Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("AH 5H 4H 3H 2H")));
+
+//             Assert.False(HandChecker.IsStraightFlush(CardUtil.GetCards("AH JH TH 9H 8H")));
+//             Assert.False(HandChecker.IsStraightFlush(CardUtil.GetCards("QH JH TS 9H 8H")));
+//         }
